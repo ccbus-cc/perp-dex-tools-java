@@ -1,6 +1,14 @@
 package com.perpdex.exchange;
 
 import com.perpdex.config.ExchangeConfig;
+import com.perpdex.exchange.apex.ApexClient;
+import com.perpdex.exchange.aster.AsterClient;
+import com.perpdex.exchange.backpack.BackpackClient;
+import com.perpdex.exchange.edgex.EdgexClient;
+import com.perpdex.exchange.extended.ExtendedClient;
+import com.perpdex.exchange.grvt.GrvtClient;
+import com.perpdex.exchange.lighter.LighterClient;
+import com.perpdex.exchange.paradex.ParadexClient;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
@@ -17,31 +25,29 @@ public class ExchangeFactory {
 
     static {
         // Register all supported exchanges
-        // These will be implemented in subsequent steps
-        registerExchange("edgex", config -> {
-            throw new UnsupportedOperationException("EdgeX client not yet implemented");
-        });
-        registerExchange("backpack", config -> {
-            throw new UnsupportedOperationException("Backpack client not yet implemented");
-        });
-        registerExchange("paradex", config -> {
-            throw new UnsupportedOperationException("Paradex client not yet implemented");
-        });
-        registerExchange("aster", config -> {
-            throw new UnsupportedOperationException("Aster client not yet implemented");
-        });
-        registerExchange("lighter", config -> {
-            throw new UnsupportedOperationException("Lighter client not yet implemented");
-        });
-        registerExchange("grvt", config -> {
-            throw new UnsupportedOperationException("GRVT client not yet implemented");
-        });
-        registerExchange("extended", config -> {
-            throw new UnsupportedOperationException("Extended client not yet implemented");
-        });
-        registerExchange("apex", config -> {
-            throw new UnsupportedOperationException("Apex client not yet implemented");
-        });
+        // Backpack - Fully implemented with REST API + WebSocket
+        registerExchange("backpack", BackpackClient::new);
+
+        // Lighter - Skeleton implementation (needs REST API + WebSocket)
+        registerExchange("lighter", LighterClient::new);
+
+        // EdgeX - Skeleton implementation (needs REST API + WebSocket)
+        registerExchange("edgex", EdgexClient::new);
+
+        // Paradex - Skeleton implementation (needs Starknet signatures + API)
+        registerExchange("paradex", ParadexClient::new);
+
+        // Aster - Skeleton implementation (needs REST API + WebSocket)
+        registerExchange("aster", AsterClient::new);
+
+        // GRVT - Skeleton implementation (needs REST API + WebSocket)
+        registerExchange("grvt", GrvtClient::new);
+
+        // Extended - Skeleton implementation (needs REST API + WebSocket)
+        registerExchange("extended", ExtendedClient::new);
+
+        // Apex - Skeleton implementation (needs REST API + WebSocket)
+        registerExchange("apex", ApexClient::new);
     }
 
     /**
